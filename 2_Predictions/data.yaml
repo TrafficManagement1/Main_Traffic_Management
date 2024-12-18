@@ -1,0 +1,7 @@
+train: data_images/train
+val: data_images/test
+nc: 7  # number of classes
+names: ['car', 'motorcycle', 'truck', 'bus', 'jeep', 'tricycle', 'face']  # list of class names
+
+# New entry for confidence threshold
+confidence_threshold: 0.3  # Adjust as needed

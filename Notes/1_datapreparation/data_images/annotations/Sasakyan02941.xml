@@ -1,0 +1,26 @@
+<annotation>
+	<folder>Result1</folder>
+	<filename>Sasakyan02941.jpeg</filename>
+	<path>C:\Users\moise\OneDrive\Desktop\Main_Traffic__Management\Notes\1_datapreparation\data_images\Sasakyan02941.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1088</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1252</xmin>
+			<ymin>446</ymin>
+			<xmax>1691</xmax>
+			<ymax>680</ymax>
+		</bndbox>
+	</object>
+</annotation>

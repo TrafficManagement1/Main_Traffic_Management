@@ -1,0 +1,26 @@
+<annotation>
+	<folder>data_images</folder>
+	<filename>pic6.jpg</filename>
+	<path>C:\Users\moise\OneDrive\Desktop\yolo_object_detection\Notes\1_datapreparation\data_images\pic6.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>5304</width>
+		<height>7952</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>348</xmin>
+			<ymin>5052</ymin>
+			<xmax>1863</xmax>
+			<ymax>6237</ymax>
+		</bndbox>
+	</object>
+</annotation>

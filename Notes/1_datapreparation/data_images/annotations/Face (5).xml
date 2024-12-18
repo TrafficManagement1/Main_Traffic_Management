@@ -1,0 +1,50 @@
+<annotation>
+	<folder>Result1</folder>
+	<filename>Face (5).jpeg</filename>
+	<path>C:\Users\moise\OneDrive\Desktop\Main_Traffic__Management\Notes\1_datapreparation\data_images\Face (5).jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1088</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>face</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1132</xmin>
+			<ymin>578</ymin>
+			<xmax>1291</xmax>
+			<ymax>845</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>face</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>600</xmin>
+			<ymin>442</ymin>
+			<xmax>623</xmax>
+			<ymax>478</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>face</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>641</xmin>
+			<ymin>429</ymin>
+			<xmax>664</xmax>
+			<ymax>469</ymax>
+		</bndbox>
+	</object>
+</annotation>

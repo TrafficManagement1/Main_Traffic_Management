@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Counting Dashboard</title>
+    <style>
+        
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@400;500;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat Alternates", sans-serif;
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9eef5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background-color: #bdc4e7;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px, solid;
+            padding: 5px;
+            background-color: #91a3f5;
+        }
+
+        img{
+            border: 1px, solid;
+        }
+
+        .report-tbl{
+            background-color: #91a3f5;
+            width: 450px;
+            height: auto;
+            padding: 10px;
+            border: 1px, solid;
+            padding: 10px;
+            padding-top: 20px;
+        }
+
+        .tod-report{
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .cuurent-data{
+            border: 1px, solid;
+            height: 400px;
+            width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 15px;
+            background-color: #ffeeee;
+        }
+
+        .recommendation{
+            border: 1px, solid;
+            height: 400px;
+            width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 15px;
+            background-color: #ffeeee;
+        }
+
+        .right-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px, solid;
+            padding: 5px;
+            background-color: #91a3f5;
+            padding: 0;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .content {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        /* Video Section */
+        .video-container {
+            text-align: center;
+            background-color: #b2c0ff;
+        }
+
+        .video-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 4px solid #003366;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Analytics Section */
+        .analytics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+            background-color: #b2c0ff;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .analytics-card {
+            background-color: #003366;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-5px);
+            background-color: #00509E;
+        }
+
+        .count {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .label {
+            font-size: 1rem;
+            margin-top: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        /* Graph Section */
+        .graphs {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px, solid;
+            padding: 10px;
+            background-color: #b2c0ff;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 10px;
+        }
+
+        .graph-container {
+            background: #b2c0ff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            border: 1px, solid;
+            display: none;
+        }
+
+        .btn1, .btn2 {
+        font-size: 14px; /* Adjust the size of the text in the buttons */
+        width: 40px; /* Set width to create a narrow rectangular button */
+        height: 40px; /* Set height for the button to make it square */
+        padding: 0; /* Remove padding */
+        border-radius: 5px; /* Slightly rounded corners */
+        background-color: rgb(9, 9, 132); /* Background color */
+        color: white; /* Text color */
+        border: 1px solid black; /* Border */
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .btn-nxt {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: space-between; /* Space the buttons horizontally */
+        position: relative;
+        top: -305px;
+        }
+
+        .btn1 span, .btn2 span {
+        font-size: 17px; /* Adjust the size of the text inside the button spans */
+        }
+
+        .btn2:hover, .btn1:hover{
+            opacity: 0.7;
+        }
+
+        .btn1:active, .btn2:active{
+            opacity: 1;
+        }
+
+
+        canvas {
+            border-radius: 10px;
+        }
+
+        .loading-message,
+        .error-message {
+            color: #003366;
+            text-align: center;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        .error-message {
+            color: #D9534F;
+        }
+
+        .content_congestion-alert{
+            background-color: #b2c0ff;
+            border: 1px, solid;
+            padding: 10px;
+        }
+
+        .traffic-status {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 10px;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .traffic-status.light { background-color: green; }
+        .traffic-status.moderate { background-color: orange; }
+        .traffic-status.heavy { background-color: red; }
+
+        .report-tbl {
+            background-color: #91a3f5;
+            width: 450px;
+            height: auto;
+            padding: 10px;
+            border: 1px solid;
+            padding-top: 20px;
+        }
+
+        .tod-report {
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .current-data {
+            border: 1px solid;
+            width: 100%;
+            margin-top: 15px;
+            background-color: #ffeeee;
+        }
+
+        .current-data table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .current-data th, .current-data td {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Responsive Adjustments */
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .analytics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .left-section, .right-section {
+        padding: 10px;
+        border: none;
+    }
+
+    .btn-nxt {
+        top: -200px; /* Adjust button position */
+    }
+}
+
+@media (max-width: 768px) {
+    .analytics {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+    }
+
+    .left-section, .right-section {
+        flex: 1;
+        width: 100%;
+        margin: 0;
+    }
+
+    .btn-nxt {
+        top: -150px; /* Adjust button position for smaller screens */
+    }
+
+    .recommendation {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .cuurent-data, .report-tbl {
+        width: 100%; /* Make tables full width */
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .analytics-card {
+        font-size: 0.9rem; /* Reduce card font size */
+        padding: 0.8rem;
+    }
+
+    .count {
+        font-size: 1.5rem; /* Reduce number size */
+    }
+
+    .label {
+        font-size: 0.8rem; /* Adjust label font size */
+    }
+
+    .graphs {
+        padding: 5px; /* Reduce padding */
+    }
+
+    .video-container img {
+        width: 100%; /* Video container responsive */
+        height: auto;
+    }
+
+    .predictive-graph-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .btn-nxt {
+        position: static; /* Fix button layout */
+        margin-top: 10px;
+    }
+
+    .predictive-analytics-button {
+        padding: 8px 12px; /* Smaller buttons */
+        font-size: 10px;
+    }
+
+    .recommendation-container {
+        padding: 10px;
+    }
+
+    .recommendation-table th, .recommendation-table td {
+        font-size: 12px; /* Adjust table font size */
+        padding: 5px;
+    }
+}
+
+
+
+        /* Updated styles for the Predictive Graph Containers */
+        .predictive-analytics{
+            border: 1px, solid;
+            background-color: #b2c0ff;
+            border-radius: 5px 5px 0 0;
+
+        }
+
+        .pred_h1 {
+            background-color: #5271ff;
+            border-radius: 5px 5px 0 0;
+            padding: 20px;
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: black;
+        }
+
+        .predictive-graph-container canvas {
+            border: 1px, solid;
+            margin-top: -250px;
+            width: 100% !important; /* Let the chart adjust to the container */
+            height: 400px !important; /* Set a fixed height */
+        }
+
+        .predictive-graph-container {
+            padding: 20px; /* Add padding around the graph */
+            width: 30%; /* Adjust width for better fit */
+            margin: 0 auto; /* Center the graph container */
+        }
+
+        .pred_btn_cont {
+            border: 1px, solid;
+            width: 110px;
+            background-color: #1166bb;
+            margin-left: 50px;
+            margin-top: 30px;
+        }
+
+        /* Predictive Analytics Buttons - Column Layout without Spacing */
+        .predictive-analytics-buttons {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center;    /* Center buttons horizontally */
+            gap: 2px;                 /* Remove the gap between buttons */
+            margin: 0;              /* Remove any margin around the container */
+        }
+
+        .predictive-analytics-button {
+            font-size: 12px;
+            padding: 12px 20px;  /* Adjust padding for size */
+            background-color: #5271ff; /* Green */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            min-width: 100px; /* Ensure buttons are wide enough */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+            margin: 0; /* Remove margin between buttons */
+        }
+
+        .predictive-analytics-button:hover {
+            background-color: #3a59e3;
+        }
+
+        .predictive-analytics-button:active {
+            background-color: #2c45b6;
+        }
+
+        .predictive-analytics-button:focus {
+            outline: none; /* Remove outline on focus */
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3); /* Focus effect */
+        }
+
+        .recommendation-table {
+        width: 100%;
+        border-collapse: collapse; /* Ensures borders do not double up */
+        margin-top: 10px;
+    }
+
+    .recommendation-table th, .recommendation-table td {
+        border: 1px solid #333; /* Border for rows and columns */
+        padding: 10px; /* Adds spacing inside cells */
+        text-align: left; /* Aligns text to the left */
+    }
+
+    .recommendation-table th {
+        background-color: #f2f2f2; /* Light gray background for header */
+    }
+
+    .recommendation-table td {
+        background-color: #ffffff; /* White background for rows */
+    }
+
+    .recommendation-container {
+        margin-top: 20px;
+        background-color: #f8f9fa; /* Light background for container */
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow for container */
+    }
+
+    #mon-pieChart, #tue-pieChart, #wed-pieChart, #thu-pieChart, #fri-pieChart, #sat-pieChart, #sun-pieChart {
+    width: 100%; /* Makes the chart responsive */
+    height: auto; /* Adjusts height automatically */
+    max-width: 300px; /* Ensures the chart doesn't exceed a certain size */
+    margin-top: 50px;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Left section for video feed -->
+        <div class="left-section">
+            <div class="content video-container">
+                <h2>Live Video Feed</h2>
+                <img src="/video_feed" alt="Live Video Feed">
+            </div>
+
+            <div class="content_congestion-alert">
+                <h3>Traffic Congestion Level</h3>
+                <div id="congestion-level" class="traffic-status">Light Traffic</div>
+            </div>
+
+            <div class="report-tbl">
+                <div class="tod-report">
+                    Today's report
+                </div>
+
+                <div class="current-data">
+                    <table>
+                        <tr>
+                            <th>Time Interval</th>
+                            <th>Vehicle Count</th>
+                        </tr>
+                        <tr>
+                            <td>12-2am</td>
+                            <td id="interval-0">0</td>
+                        </tr>
+                        <tr>
+                            <td>2-4am</td>
+                            <td id="interval-1">0</td>
+                        </tr>
+                        <tr>
+                            <td>4-6am</td>
+                            <td id="interval-2">0</td>
+                        </tr>
+                        <tr>
+                            <td>6-8am</td>
+                            <td id="interval-3">0</td>
+                        </tr>
+                        <tr>
+                            <td>8-10am</td>
+                            <td id="interval-4">0</td>
+                        </tr>
+                        <tr>
+                            <td>10-12nn</td>
+                            <td id="interval-5">0</td>
+                        </tr>
+                        <tr>
+                            <td>12-2pm</td>
+                            <td id="interval-6">0</td>
+                        </tr>
+                        <tr>
+                            <td>2-4pm</td>
+                            <td id="interval-7">0</td>
+                        </tr>
+                        <tr>
+                            <td>4-6pm</td>
+                            <td id="interval-8">0</td>
+                        </tr>
+                        <tr>
+                            <td>6-8pm</td>
+                            <td id="interval-9">0</td>
+                        </tr>
+                        <tr>
+                            <td>8-10pm</td>
+                            <td id="interval-10">0</td>
+                        </tr>
+                        <tr>
+                            <td>10-12mn</td>
+                            <td id="interval-11">0</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="recommendation-container">
+                <h2>Recommendation</h2>
+                <table class="recommendation-table">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid #333; padding: 10px; background-color: #f2f2f2;">Recommend</th>
+                            <th style="border: 1px solid #333; padding: 10px; background-color: #f2f2f2;">Time Interval</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recommendationTableBody">
+                        <!-- Dynamic rows will be appended here -->
+                    </tbody>
+                </table>
+            </div>            
+            
+        </div>
+
+        <!-- Right section for analytics and graphs -->
+        <div class="right-section">
+            <div class="pred_h1">Dashboard</div>
+            <!-- Analytics Cards (remain unchanged) -->
+            <div class="content analytics">
+                <div class="analytics-card"><div class="count" id="car-count">0</div><div class="label">Total Cars</div></div>
+                <div class="analytics-card"><div class="count" id="truck-count">0</div><div class="label">Total Trucks</div></div>
+                <div class="analytics-card"><div class="count" id="motorcycle-count">0</div><div class="label">Total Motorcycles</div></div>
+                <div class="analytics-card"><div class="count" id="bus-count">0</div><div class="label">Total Buses</div></div>
+                <div class="analytics-card"><div class="count" id="jeep-count">0</div><div class="label">Total Jeeps</div></div>
+                <div class="analytics-card"><div class="count" id="tricycle-count">0</div><div class="label">Total Tricycles</div></div>
+            </div>
+        
+            <!-- Graphs Section (Hourly & Daily) -->
+            <div class="graphs">
+                <div class="graph-container" id="dailyChartContainer">
+                    <canvas id="dailyChart"></canvas>
+                </div>
+        
+                <div class="graph-container" id="hourlyChartContainer">
+                    <canvas id="hourlyChart"></canvas>
+                </div>
+        
+                <div class="btn-nxt">
+                    <button class="btn1"><span>❮</span></button>
+                    <button class="btn2"><span>❯</span></button>
+                </div>
+            </div>
+        
+            <!-- Predictive Analytics Section -->
+            <div class="predictive-analytics">
+                <div class="pred_h1">Upcoming Days' Vehicle Count</div>
+                <div class="pred_btn_cont">
+                    <div class="predictive-analytics-buttons">
+                        <button class="predictive-analytics-button" id="mon-button">Mon</button>
+                        <button class="predictive-analytics-button" id="tue-button">Tue</button>
+                        <button class="predictive-analytics-button" id="wed-button">Wed</button>
+                        <button class="predictive-analytics-button" id="thu-button">Thu</button>
+                        <button class="predictive-analytics-button" id="fri-button">Fri</button>
+                        <button class="predictive-analytics-button" id="sat-button">Sat</button>
+                        <button class="predictive-analytics-button" id="sun-button">Sun</button>
+                    </div>
+    
+                </div>
+                
+                <!-- Predictive Graphs for Each Day -->
+                <div class="predictive-graph-container" id="mon-graph" style="display: none;">
+                    <canvas id="monChart"></canvas>
+                </div>
+                <div id="mon-pieChartContainer" class="predictive-graph-container">
+                    <canvas id="mon-pieChart"></canvas>
+                </div>
+
+                <div class="predictive-graph-container" id="tue-graph" style="display: none;">
+                    <canvas id="tueChart"></canvas>
+                </div>
+                <div id="tue-pieChartContainer" class="predictive-graph-container">
+                    <canvas id="tue-pieChart"></canvas>
+                </div>
+
+                <div class="predictive-graph-container" id="wed-graph" style="display: none;">
+                    <canvas id="wedChart"></canvas>
+                </div>
+                <div id="wed-pieChartContainer" class="predictive-graph-container">
+                    <canvas id="wed-pieChart"></canvas>
+                </div>
+
+                <div class="predictive-graph-container" id="thu-graph" style="display: none;">
+                    <canvas id="thuChart"></canvas>
+                </div>
+                <div id="thu-pieChartContainer" class="predictive-graph-container">
+                    <canvas id="thu-pieChart"></canvas>
+                </div>
+
+                <div class="predictive-graph-container" id="fri-graph" style="display: none;">
+                    <canvas id="friChart"></canvas>
+                </div>
+                <div id="fri-pieChartContainer" class="predictive-graph-container">
+                    <canvas id="fri-pieChart"></canvas>
+                </div>
+
+                <div class="predictive-graph-container" id="sat-graph" style="display: none;">
+                    <canvas id="satChart"></canvas>
+                </div>
+                <div id="sat-pieChartContainer" class="predictive-graph-container">
+                    <canvas id="sat-pieChart"></canvas>
+                </div>
+
+                <div class="predictive-graph-container" id="sun-graph" style="display: none;">
+                    <canvas id="sunChart"></canvas>
+                </div>
+                <div id="sun-pieChartContainer" class="predictive-graph-container">
+                    <canvas id="sun-pieChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- Loading and Error Messages -->
+            <div class="loading-message" id="loading-message">Loading data...</div>
+            <div class="error-message" id="error-message"></div>
+        </div>
+      
+    </div>
+
+    <script>
+        const baseUrl = '/';
+        const historicalData = { car: [], motorcycle: [], truck: [], bus: [], jeep: [], tricycle: [] };
+        const labels = [];
+        let currentDay = new Date().getDay();
+        let lastUpdatedCounts = { car: 0, motorcycle: 0, truck: 0, bus: 0, jeep: 0, tricycle: 0 };
+        let currentHourlyCounts = Array(12).fill(0);
+        let dailyCounts = Array(7).fill(0); // 7 days of the week
+        let lastIntervalIndex = Math.floor(new Date().getHours() / 2);
+        let lastIntervalIndexx = -1; // Track the previous interval
+        let previousTotalCount = 0; // Track the previous total vehicle count
+
+        let lastVehicleCounts = { car: 0, motorcycle: 0, truck: 0, bus: 0, jeep: 0, tricycle: 0 };
+    
+        // Handle Hourly and Daily Graphs Visibility
+        let currentGraphIndex = 0; // Track the current graph (hourly & daily only)
+        const graphContainers = document.querySelectorAll('.graph-container'); // Hourly and Daily Graphs
+        const totalGraphs = graphContainers.length; // Total number of graphs
+    
+        // Function to show the current graph (hourly & daily)
+        function showGraph(index) {
+            graphContainers.forEach((graph, i) => {
+                if (i === index) {
+                    graph.style.display = 'block'; // Show the selected graph
+                } else {
+                    graph.style.display = 'none'; // Hide the others
+                }
+            });
+        }
+    
+        // Show the first graph (default: hourly) when the page loads
+        showGraph(currentGraphIndex);
+    
+        // Add event listeners to btn1 and btn2 to navigate through hourly/daily graphs
+        document.querySelector('.btn1').addEventListener('click', () => {
+            currentGraphIndex = (currentGraphIndex - 1 + totalGraphs) % totalGraphs;
+            showGraph(currentGraphIndex);
+        });
+    
+        document.querySelector('.btn2').addEventListener('click', () => {
+            currentGraphIndex = (currentGraphIndex + 1) % totalGraphs;
+            showGraph(currentGraphIndex);
+        });
+    
+        // Hourly Chart
+        const ctxHourly = document.getElementById('hourlyChart').getContext('2d');
+        const hourlyChart = new Chart(ctxHourly, {
+            type: 'bar',
+            data: {
+                labels: ['12-2am', '2-4am', '4-6am', '6-8am', '8-10am', '10-12nn', '12-2pm', '2-4pm', '4-6pm', '6-8pm', '8-10pm', '10-12mn'],
+                datasets: [{ label: 'Vehicles', data: currentHourlyCounts, backgroundColor: 'rgba(255, 99, 132, 1)' }]
+            },
+            options: {
+                responsive: true,
+                scales: { x: { title: { display: true, text: 'Time' } }, y: { beginAtZero: true, title: { display: true, text: 'Count' }}}
+            }
+        });
+    
+        const ctxDaily = document.getElementById('dailyChart').getContext('2d');
+        const dailyChart = new Chart(ctxDaily, {
+            type: 'bar',
+            data: {
+                labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                datasets: [{
+                    label: 'Vehicles',
+                    data: dailyCounts, // Link to dailyCounts array
+                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Days' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Vehicle Count' }
+                    }
+                }
+            }
+        });
+
+        // Utility Functions
+function resetDailyDataIfNewDay() {
+    const now = new Date();
+
+    // Check if the day has changed
+    if (now.getDay() !== currentDay) {
+        dailyCounts[currentDay] = currentHourlyCounts.reduce((a, b) => a + b, 0); // Save counts for the previous day
+        currentDay = now.getDay(); // Update the current day
+        dailyCounts[currentDay] = 0; // Reset the count for the new day
+        currentHourlyCounts = Array(12).fill(0); // Reset hourly counts
+
+        // Update the daily chart
+        dailyChart.data.datasets[0].data = [...dailyCounts];
+        dailyChart.update();
+    }
+}
+
+
+
+// Fetch Data Functions
+async function fetchDailyData() {
+    try {
+        const response = await fetch('/get_daily_data');
+        if (!response.ok) throw new Error('Failed to fetch daily data');
+
+        const result = await response.json();
+
+        // Map days of the week (Sun to Sat) as fixed labels
+        const weekLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const counts = new Array(7).fill(0); // Default counts initialized to 0
+
+        // Convert database dates to day indices
+        result.data.forEach(entry => {
+            const date = new Date(entry.date);
+            const dayIndex = date.getDay(); // 0 = Sunday, 6 = Saturday
+            counts[dayIndex] = entry.count; // Update count for the day
+        });
+
+        // Update the daily chart with fixed week labels and counts
+        dailyChart.data.labels = weekLabels;
+        dailyChart.data.datasets[0].data = counts;
+        dailyChart.update();
+    } catch (error) {
+        console.error('Error fetching daily data:', error);
+    }
+}
+
+
+async function fetchHourlyData() {
+    try {
+        const response = await fetch('/get_hourly_data'); // Fetch cumulative counts
+        if (!response.ok) throw new Error('Failed to fetch hourly data');
+
+        const hourlyData = await response.json();
+
+        // Time intervals for labeling
+        const timeIntervals = [
+            '12-2am', '2-4am', '4-6am', '6-8am', '8-10am', '10-12nn',
+            '12-2pm', '2-4pm', '4-6pm', '6-8pm', '8-10pm', '10-12mn'
+        ];
+
+        // Update the table directly with cumulative counts
+        for (let i = 0; i < timeIntervals.length; i++) {
+            document.getElementById(`interval-${i}`).innerText = hourlyData.counts[i];
+        }
+
+        // Update the hourly chart with accurate cumulative data
+        hourlyChart.data.labels = timeIntervals;
+        hourlyChart.data.datasets[0].data = hourlyData.counts;
+        hourlyChart.update();
+
+    } catch (error) {
+        console.error('Error fetching hourly data:', error);
+    }
+}
+
+
+
+// Update Data Functions
+async function updateChartData() {
+    document.getElementById('loading-message').style.display = 'block';
+    document.getElementById('error-message').innerText = '';
+
+    try {
+        const response = await fetch('/get_report_data');
+        if (!response.ok) throw new Error("Failed to fetch report data");
+
+        const data = await response.json();
+
+        // Calculate the total vehicle count across all types
+        const currentTotalCount = data.car + data.motorcycle + data.truck + data.bus + data.jeep + data.tricycle;
+
+        // Determine the current interval index (2-hour intervals)
+        const now = new Date();
+        const currentIntervalIndex = Math.floor(now.getHours() / 2);
+
+        // Handle a new interval
+        if (currentIntervalIndex !== lastIntervalIndexx) {
+            lastIntervalIndexx = currentIntervalIndex; // Update interval index
+            currentHourlyCounts[currentIntervalIndex] = 0; // Reset count for the new interval
+            previousTotalCount = currentTotalCount; // Reset previous total count
+        }
+
+        // Calculate the increment for the current interval
+        const increment = currentTotalCount - previousTotalCount;
+        if (increment > 0) {
+            currentHourlyCounts[currentIntervalIndex] += increment; // Add increment
+            hourlyChart.data.datasets[0].data = [...currentHourlyCounts];
+            hourlyChart.update();
+        }
+
+        // Update the previous total count
+        previousTotalCount = currentTotalCount;
+
+        // Update the table with interval counts
+        for (let i = 0; i < currentHourlyCounts.length; i++) {
+            document.getElementById(`interval-${i}`).innerText = currentHourlyCounts[i];
+        }
+
+        // Update the analytics cards with the latest counts
+        document.getElementById('car-count').innerText = data.car;
+        document.getElementById('truck-count').innerText = data.truck;
+        document.getElementById('motorcycle-count').innerText = data.motorcycle;
+        document.getElementById('bus-count').innerText = data.bus;
+        document.getElementById('jeep-count').innerText = data.jeep;
+        document.getElementById('tricycle-count').innerText = data.tricycle;
+
+        // Update the daily graph with the latest aggregated counts
+        updateDailyCounts();
+    } catch (error) {
+        console.error('Error fetching report data:', error);
+        document.getElementById('error-message').innerText = "Error fetching data. Please try again later.";
+    } finally {
+        document.getElementById('loading-message').style.display = 'none';
+    }
+}
+
+// Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    fetchDailyData();  // Load daily data on page load
+    fetchHourlyData(); // Load hourly data on page load
+    updateChartData(); // Update cards and charts on page load
+});
+
+setInterval(() => {
+    fetchDailyData();
+    fetchHourlyData();
+}, 3000); // Fetch data every 3 seconds
+
+
+// Periodic Updates
+setInterval(updateChartData, 3000); // Update data every 3 seconds
+setInterval(resetDailyDataIfNewDay, 60000); // Check and reset daily data every minute
+    
+        async function updateCongestionLevel() {
+            try {
+                const response = await fetch('/get_congestion_level');
+                if (!response.ok) throw new Error('Network response was not ok');
+    
+                const data = await response.json();
+                console.log('Fetched congestion level:', data);  // Debugging response object
+                console.log('Fetched congestion level value:', data.congestion_level);  // Verify congestion level value
+    
+                const congestionDiv = document.getElementById('congestion-level');
+                if (congestionDiv && data.congestion_level) {
+                    congestionDiv.innerText = data.congestion_level;
+                    console.log('Congestion level element updated:', data.congestion_level);
+    
+                    // Update CSS class based on congestion level
+                    congestionDiv.classList.remove('light', 'moderate', 'heavy');
+                    if (data.congestion_level === 'Low Volume') {
+                        congestionDiv.classList.add('light');
+                    } else if (data.congestion_level === 'Mid Volume') {
+                        congestionDiv.classList.add('moderate');
+                    } else if (data.congestion_level === 'High Volume') {
+                        congestionDiv.classList.add('heavy');
+                    }
+                } else {
+                    console.error('Congestion level element not found or missing value from response:', data);
+                }
+            } catch (error) {
+                console.error('Error fetching congestion level:', error);
+            }
+        }
+    
+        updateCongestionLevel();
+        setInterval(updateCongestionLevel, 5000);
+    
+        document.addEventListener('DOMContentLoaded', () => {
+    // Get predictive analytics buttons
+    const buttons = document.querySelectorAll('.predictive-analytics-button');
+
+    // Get all graph containers for predictive analytics (Mon-Sun)
+    const graphContainers = [
+        document.getElementById('mon-graph'),
+        document.getElementById('tue-graph'),
+        document.getElementById('wed-graph'),
+        document.getElementById('thu-graph'),
+        document.getElementById('fri-graph'),
+        document.getElementById('sat-graph'),
+        document.getElementById('sun-graph')
+    ];
+
+    let currentPredictiveGraphIndex = 0; // Track the current predictive graph
+
+    // Function to hide all predictive graphs
+    function hideAllPredictiveGraphs() {
+        graphContainers.forEach(graph => {
+            graph.style.display = 'none';
+        });
+    }
+
+    // Function to show the current predictive graph based on index
+    function showPredictiveGraph(index) {
+        hideAllPredictiveGraphs();
+        graphContainers[index].style.display = 'block';
+    }
+
+    // Function to fetch average counts from the backend
+    async function fetchPredictiveData() {
+    try {
+        const response = await fetch('/get_average_counts');
+        if (!response.ok) throw new Error("Failed to fetch predictive data");
+
+        const predictiveData = await response.json();
+        console.log("Predictive data fetched:", predictiveData);
+
+        const dayIds = {
+            "Monday": "monChart",
+            "Tuesday": "tueChart",
+            "Wednesday": "wedChart",
+            "Thursday": "thuChart",
+            "Friday": "friChart",
+            "Saturday": "satChart",
+            "Sunday": "sunChart"
+        };
+
+        Object.entries(dayIds).forEach(([day, chartId]) => {
+            const ctx = document.getElementById(chartId).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [day],
+                    datasets: [{
+                        label: 'Average Vehicle Count',
+                        data: [predictiveData[day] || 0],
+                        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                        borderColor: 'rgba(0, 123, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    } catch (error) {
+        console.error("Error fetching predictive data:", error);
+    }
+}
+
+fetchPredictiveData();
+
+
+
+
+    // Show the first predictive graph initially (optional, can remove this line if no default display is needed)
+    hideAllPredictiveGraphs();
+
+    // Add event listeners to predictive analytics buttons (Mon-Sun)
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            currentPredictiveGraphIndex = index; // Update current graph index based on the button clicked
+            showPredictiveGraph(currentPredictiveGraphIndex);
+        });
+    });
+
+    // Fetch and initialize predictive data on page load
+    fetchPredictiveData();
+});
+
+
+
+    // Fetch average vehicle counts for each day of the week
+async function fetchAverageCounts() {
+    try {
+        const response = await fetch('/get_average_counts'); // Fetch data from backend
+        if (!response.ok) throw new Error("Failed to fetch average counts");
+
+        const averageCounts = await response.json(); // Parse the JSON response
+        console.log("Average counts fetched:", averageCounts);
+
+        // Initialize charts for each day with fetched data
+        initializeDayCharts(averageCounts);
+    } catch (error) {
+        console.error("Error fetching average counts:", error);
+    }
+}
+
+const staticIntervalCounts = {
+    //   12-2, 2-4, 4-6, 6-8, 8-10, 10-12, 12-2, 2-4, 4-6, 6-8, 8-10, 10-12
+    Mon: [0, 0, 0, 0, 0, 354.625, 354.625, 354.625, 354.625, 0, 0, 0],
+    Tue: [90, 110, 80, 140, 190, 120, 70, 100, 130, 160, 170, 80],
+    Wed: [95, 115, 85, 145, 195, 125, 75, 105, 135, 165, 175, 85],
+    Thu: [85, 105, 75, 135, 185, 115, 65, 95, 125, 155, 165, 75],
+    Fri: [120, 140, 110, 170, 220, 150, 100, 130, 160, 190, 200, 110],
+    Sat: [130, 150, 120, 180, 230, 160, 110, 140, 170, 200, 210, 120],
+    Sun: [110, 130, 100, 160, 210, 140, 90, 120, 150, 180, 190, 100]
+};
+
+
+// Initialize individual charts for each day
+function initializeDayCharts() {
+    const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+    days.forEach(day => {
+        const dayKey = day.charAt(0).toUpperCase() + day.slice(1); // Capitalize day names
+
+        // Pie Chart for Time Intervals
+        const pieCtx = document.getElementById(`${day}-pieChart`).getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    "12-2am", "2-4am", "4-6am", "6-8am", "8-10am", "10-12nn",
+                    "12-2pm", "2-4pm", "4-6pm", "6-8pm", "8-10pm", "10-12mn"
+                ],
+                datasets: [{
+                    data: staticIntervalCounts[dayKey] || Array(12).fill(0), // Static interval counts
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#66FF66', '#FF9966', '#CCCCFF',
+                        '#FF99CC', '#CCFF66', '#33CCFF', '#9966FF', '#FF6666', '#66CCCC'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: {
+                        display: true,
+                        text: `Time Interval Distribution (${dayKey})`
+                    }
+                }
+            }
+        });
+    });
+}
+
+// Toggle visibility of day-specific graphs
+function toggleDayGraph(day) {
+    // Hide all bar and pie graph containers
+    document.querySelectorAll('.predictive-graph-container').forEach(container => {
+        container.style.display = 'none';
+    });
+
+    // Show selected day's pie chart
+    const pieGraph = document.getElementById(`${day}-pieChartContainer`);
+    if (pieGraph) pieGraph.style.display = 'block';
+}
+
+// Attach button event listeners
+document.querySelectorAll('.predictive-analytics-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const day = button.id.split('-')[0]; // Get the day identifier from button ID
+        toggleDayGraph(day); // Show the corresponding pie chart
+    });
+});
+
+// Initialize charts on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initializeDayCharts(); // Initialize only pie charts with static data
+});
+
+
+async function fetchRecommendations() {
+    try {
+        const response = await fetch('/get_recommendations');
+        if (!response.ok) throw new Error("Failed to fetch recommendations");
+
+        const recommendations = await response.json();
+        console.log("Recommendations fetched:", recommendations);
+
+        const recommendationTable = document.getElementById('recommendationTableBody');
+        recommendationTable.innerHTML = ''; // Clear previous recommendations
+
+        recommendations.forEach(rec => {
+            const row = document.createElement('tr');
+            const alertCell = document.createElement('td');
+            const intervalCell = document.createElement('td');
+            alertCell.textContent = rec.alert;
+            intervalCell.textContent = rec.time_interval;
+            row.appendChild(alertCell);
+            row.appendChild(intervalCell);
+            recommendationTable.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error fetching recommendations:", error);
+    }
+}
+
+// Fetch recommendations every 5 seconds
+setInterval(fetchRecommendations, 5000);
+
+let lastIntervalIndexxx = -1; // Track the last time interval index
+
+async function updateRecommendations() {
+    try {
+        // Fetch the current counts
+        const response = await fetch('/get_report_data');
+        if (!response.ok) throw new Error("Failed to fetch report data");
+
+        const data = await response.json();
+        const totalCounts = Object.values(data).reduce((a, b) => a + b, 0); // Sum up all vehicle counts
+
+        const recommendationTableBody = document.getElementById('recommendationTableBody');
+
+        // Calculate the current time interval index (e.g., 2-hour intervals)
+        const now = new Date();
+        const currentIntervalIndex = Math.floor(now.getHours() / 2);
+
+        // If the time interval has changed, clear the table and reset
+        if (currentIntervalIndex !== lastIntervalIndexxx) {
+            recommendationTableBody.innerHTML = ''; // Clear previous recommendations
+            lastIntervalIndexxx = currentIntervalIndex; // Update to the new interval
+        }
+
+        // Check if total counts exceed the threshold (e.g., 5) for the current interval
+        if (totalCounts >= 5) {
+            const startHour = currentIntervalIndex * 2;
+            const endHour = startHour + 2;
+
+            // Convert start and end hours to AM/PM format
+            const formatHour = (hour) => {
+                const suffix = hour >= 12 ? 'PM' : 'AM';
+                const formattedHour = hour % 12 === 0 ? 12 : hour % 12; // Convert 0 or 24 to 12 AM/PM
+                return `${formattedHour}${suffix}`;
+            };
+
+            const timeInterval = `${formatHour(startHour)}-${formatHour(endHour)}`;
+
+            // Add a recommendation row if not already present
+            if (!recommendationTableBody.querySelector('tr')) {
+                const row = document.createElement('tr');
+                const alertCell = document.createElement('td');
+                const intervalCell = document.createElement('td');
+                alertCell.textContent = "Heavy traffic ahead. Consider alternative routes to avoid delays.";
+                intervalCell.textContent = timeInterval;
+                row.appendChild(alertCell);
+                row.appendChild(intervalCell);
+                recommendationTableBody.appendChild(row);
+            }
+        }
+    } catch (error) {
+        console.error("Error updating recommendations:", error);
+    }
+}
+
+// Call the function every 5 seconds to check and update recommendations dynamically
+setInterval(updateRecommendations, 5000);
+
+// Populate pie chart for time intervals
+const timeIntervalData = [30, 45, 20, 60, 10, 25, 15, 40, 55, 35, 50, 30]; // Example data
+    const timeIntervalLabels = [
+        "12-2am", "2-4am", "4-6am", "6-8am", "8-10am", "10-12pm",
+        "12-2pm", "2-4pm", "4-6pm", "6-8pm", "8-10pm", "10-12am"
+    ];
+
+    const pieCtx = document.getElementById('timeIntervalPieChart').getContext('2d');
+    new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+            labels: timeIntervalLabels,
+            datasets: [{
+                label: 'Vehicle Count',
+                data: timeIntervalData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(199, 199, 199, 0.2)',
+                    'rgba(255, 99, 71, 0.2)',
+                    'rgba(106, 90, 205, 0.2)',
+                    'rgba(50, 205, 50, 0.2)',
+                    'rgba(138, 43, 226, 0.2)',
+                    'rgba(255, 127, 80, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(199, 199, 199, 1)',
+                    'rgba(255, 99, 71, 1)',
+                    'rgba(106, 90, 205, 1)',
+                    'rgba(50, 205, 50, 1)',
+                    'rgba(138, 43, 226, 1)',
+                    'rgba(255, 127, 80, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true, position: 'bottom' },
+                title: { display: true, text: 'Vehicle Distribution by Time Intervals' }
+            }
+        }
+    });
+
+    </script>    
+        
+  
+</body>
+</html>
