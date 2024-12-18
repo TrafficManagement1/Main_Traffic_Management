@@ -1,0 +1,76 @@
+# YOLO Model Weights (Large binary files)
+*.weights filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+
+# YOLO Dataset Images (Common image file types)
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.bmp filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+
+# YOLO Annotation Files (Text files with bounding box info)
+*.txt filter=lfs diff=lfs merge=lfs -text
+
+# YOLO Configuration Files (Text files)
+*.cfg text
+*.yaml text
+*.json text
+*.xml text
+
+# Archives and Compressed Files (Binary large files)
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.tar filter=lfs diff=lfs merge=lfs -text
+*.gz filter=lfs diff=lfs merge=lfs -text
+*.bz2 filter=lfs diff=lfs merge=lfs -text
+*.xz filter=lfs diff=lfs merge=lfs -text
+*.7z filter=lfs diff=lfs merge=lfs -text
+
+# Videos (Large binary files for video data)
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mkv filter=lfs diff=lfs merge=lfs -text
+*.avi filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+
+# Audio Files (If needed for your project)
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+
+# Large Documents (PDF, etc.)
+*.pdf filter=lfs diff=lfs merge=lfs -text
+
+# Miscellaneous Binary Files (for any other large binary file types)
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.dat filter=lfs diff=lfs merge=lfs -text
+*.dat filter=lfs diff=lfs merge=lfs -text
+*.sqlite filter=lfs diff=lfs merge=lfs -text
+
+# Common Code Files (text files that should be handled normally)
+*.py text
+*.cpp text
+*.h text
+*.java text
+*.js text
+*.html text
+*.css text
+*.xml text
+*.json text
+*.yaml text
+
+# Documentation (Markdown, LaTeX, etc.)
+*.md text
+*.rst text
+*.tex text
+
+# HTML Files (Text)
+*.html text
+
+# Database Files (Binary, using Git LFS)
+*.db filter=lfs diff=lfs merge=lfs -text
+*.sqlite filter=lfs diff=lfs merge=lfs -text
+*.sqlite3 filter=lfs diff=lfs merge=lfs -text
+
+# Log Files (text files that should be handled normally)
+*.log text
