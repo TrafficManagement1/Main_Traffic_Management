@@ -21,7 +21,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(yolo.log_daily_counts_to_db, 'cron', hour=0, minute=0)
 
 # Open video file
-video_path = 'C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/static/testvehicle5.mp4'
+video_path = 'https://twitch.tv/tarfic01'
 cap = cv2.VideoCapture(video_path)
 
 def log_counts_to_db(self):
