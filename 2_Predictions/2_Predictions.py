@@ -118,7 +118,7 @@ last_interval_counts = {'12-2am': 0, '2-4am': 0, '4-6am': 0, '6-8am': 0,
                         '8-10am': 0, '10-12nn': 0, '12-2pm': 0, '2-4pm': 0, 
                         '4-6pm': 0, '6-8pm': 0, '8-10pm': 0, '10-12mn': 0}
 
-@app.route('https://trafficmanagement.website/get_report_data')
+@app.route('/get_report_data')
 def get_report_data():
     try:
         # Fetch the accurate counts from self.total_vehicle_count
