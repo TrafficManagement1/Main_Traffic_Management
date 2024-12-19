@@ -12,8 +12,8 @@ CORS(app)
 
 # Initialize YOLO model
 yolo = YOLO_Pred(
-    'C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/2_Predictions/Model16/weights/best.onnx',
-    'C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/2_Predictions/data.yaml'
+    '2_Predictions/Model16/weights/best.onnx',
+    '2_Predictions/data.yaml'
 )
 
 # Initialize scheduler
@@ -105,7 +105,7 @@ def generate_frames():
 
 @app.route('/')
 def index():
-        return send_file(r"C:\Users\moise\OneDrive\Desktop\Main_Traffic__Management\index.html")
+        return send_file(r"index.html")
 
 @app.route('/video_feed')
 def video_feed():
@@ -118,7 +118,7 @@ last_interval_counts = {'12-2am': 0, '2-4am': 0, '4-6am': 0, '6-8am': 0,
                         '8-10am': 0, '10-12nn': 0, '12-2pm': 0, '2-4pm': 0, 
                         '4-6pm': 0, '6-8pm': 0, '8-10pm': 0, '10-12mn': 0}
 
-@app.route('/get_report_data')
+@app.route('https://trafficmanagement.website/get_report_data')
 def get_report_data():
     try:
         # Fetch the accurate counts from self.total_vehicle_count
@@ -132,7 +132,7 @@ def get_report_data():
         }
 
         # Connect to the database
-        conn = sqlite3.connect('C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/2_Predictions/vehicle_data.db')
+        conn = sqlite3.connect('2_Predictions/vehicle_data.db')
         cursor = conn.cursor()
 
         # Get the current date
@@ -203,11 +203,11 @@ def get_report_data():
 
 
 # Aggregated daily data for descriptive analytics
-@app.route('/get_daily_data', methods=['GET'])
+@app.route('https://trafficmanagement.website/get_daily_data', methods=['GET'])
 def get_daily_data():
     try:
         # Connect to the SQLite database
-        conn = sqlite3.connect('C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/2_Predictions/vehicle_data.db')
+        conn = sqlite3.connect('2_Predictions/vehicle_data.db')
         cursor = conn.cursor()
 
         # Query to get all dates and the total counts (sum of all vehicle types)
@@ -235,10 +235,10 @@ def get_daily_data():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/get_hourly_data', methods=['GET'])
+@app.route('https://trafficmanagement.website/get_hourly_data', methods=['GET'])
 def get_hourly_data():
     try:
-        conn = sqlite3.connect('C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/2_Predictions/vehicle_data.db')
+        conn = sqlite3.connect('2_Predictions/vehicle_data.db')
         cursor = conn.cursor()
 
         # Fetch cumulative counts for all time intervals
@@ -261,18 +261,18 @@ def get_hourly_data():
 
 
 
-@app.route('/get_descriptive_data')
+@app.route('https://trafficmanagement.website/get_descriptive_data')
 def get_descriptive_data():
     return jsonify(yolo.time_based_counts)
     
-@app.route('/get_congestion_level', methods=['GET'])
+@app.route('https://trafficmanagement.website/get_congestion_level', methods=['GET'])
 def get_congestion_level():
     yolo.calculate_congestion()  # Calculate the current congestion level
     congestion_level = yolo.congestion_level
     print(f'Current congestion level set to: {congestion_level}')  # Debug output to verify
     return jsonify({'congestion_level': congestion_level})
 
-@app.route('/get_historical_congestion_data')
+@app.route('https://trafficmanagement.website/get_historical_congestion_data')
 def get_historical_congestion_data():
     conn = sqlite3.connect('vehicle_data.db')
     cursor = conn.cursor()
@@ -296,7 +296,7 @@ def get_historical_congestion_data():
     return jsonify(historical_data)
 
 
-@app.route('/get_historical_data')
+@app.route('https://trafficmanagement.website/get_historical_data')
 def get_historical_data():
     try:
         conn = sqlite3.connect('vehicle_data.db')
@@ -324,12 +324,12 @@ def get_historical_data():
         historical_data[timestamp][vehicle_type] = count
     return jsonify(historical_data)
 
-@app.route('/manual_log_daily_counts')
+@app.route('https://trafficmanagement.website/manual_log_daily_counts')
 def manual_log_daily_counts():
     yolo.log_daily_counts_to_db()
     return jsonify({"status": "Manual daily counts logging triggered"}) 
 
-@app.route('/get_predictive_data', methods=['GET'])
+@app.route('https://trafficmanagement.website/get_predictive_data', methods=['GET'])
 def get_predictive_data():
     try:
         conn = sqlite3.connect('vehicle_data.db')
@@ -370,11 +370,11 @@ def get_predictive_data():
         print("Error generating predictive data:", e)
         return jsonify({"error": "Failed to generate predictive data"}), 500
 
-@app.route('/get_average_counts', methods=['GET'])
+@app.route('https://trafficmanagement.website/get_average_counts', methods=['GET'])
 def get_average_counts():
     try:
         # Connect to the database
-        conn = sqlite3.connect('C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/2_Predictions/vehicle_data.db')
+        conn = sqlite3.connect('2_Predictions/vehicle_data.db')
         cursor = conn.cursor()
 
         # Correct SQL query based on your schema
@@ -402,7 +402,7 @@ def get_average_counts():
         return jsonify({"error": f"An error occurred: {e}"}), 500
 
 
-@app.route('/test_database', methods=['GET'])
+@app.route('https://trafficmanagement.website/test_database', methods=['GET'])
 def test_database():
     try:
         conn = sqlite3.connect('vehicle_data.db')  # Ensure this matches the location of your database
@@ -418,10 +418,10 @@ def test_database():
 
 from datetime import datetime
 
-@app.route('/get_recommendations', methods=['GET'])
+@app.route('https://trafficmanagement.website/get_recommendations', methods=['GET'])
 def get_recommendations():
     try:
-        conn = sqlite3.connect('C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/Notes/vehicle_data.db')
+        conn = sqlite3.connect('Notes/vehicle_data.db')
         cursor = conn.cursor()
 
         # Get current time interval
@@ -462,7 +462,7 @@ def get_recommendations():
 def initialize_total_vehicle_counts_table():
     """Create the total_vehicle_counts table if it doesn't exist."""
     try:
-        conn = sqlite3.connect('C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/Notes/vehicle_data.db')
+        conn = sqlite3.connect('Notes/vehicle_data.db')
         cursor = conn.cursor()
 
         # Create the table
