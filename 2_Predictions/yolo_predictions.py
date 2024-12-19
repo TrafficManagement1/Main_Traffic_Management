@@ -294,7 +294,7 @@ class YOLO_Pred:
     def update_hourly_counts(self):
         """Update hourly vehicle counts in the database."""
         try:
-            conn = sqlite3.connect('C:/Users/moise/OneDrive/Desktop/Main_Traffic__Management/Notes/vehicle_data.db')
+            conn = sqlite3.connect('Notes/vehicle_data.db')
             cursor = conn.cursor()
 
             current_hour = datetime.now().strftime("%Y-%m-%d %H:00:00")
