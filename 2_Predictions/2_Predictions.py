@@ -5,8 +5,10 @@ from yolo_predictions import datetime
 from yolo_predictions import YOLO_Pred
 from apscheduler.schedulers.background import BackgroundScheduler
 import sqlite3
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Initialize YOLO model
 yolo = YOLO_Pred(
