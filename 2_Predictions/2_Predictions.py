@@ -105,7 +105,7 @@ def generate_frames():
 
 @app.route('/')
 def index():
-        return send_file(r"index.html")
+        return send_file("index.html")
 
 @app.route('/video_feed')
 def video_feed():
