@@ -815,7 +815,7 @@ function resetDailyDataIfNewDay() {
 // Fetch Data Functions
 async function fetchDailyData() {
     try {
-        const response = await fetch('/get_daily_data');
+        const response = await fetch('https://trafficmanagement.website/get_daily_data');
         if (!response.ok) throw new Error('Failed to fetch daily data');
 
         const result = await response.json();
@@ -843,7 +843,7 @@ async function fetchDailyData() {
 
 async function fetchHourlyData() {
     try {
-        const response = await fetch('/get_hourly_data'); // Fetch cumulative counts
+        const response = await fetch('https://trafficmanagement.website/get_hourly_data'); // Fetch cumulative counts
         if (!response.ok) throw new Error('Failed to fetch hourly data');
 
         const hourlyData = await response.json();
@@ -877,7 +877,7 @@ async function updateChartData() {
     document.getElementById('error-message').innerText = '';
 
     try {
-        const response = await fetch('/get_report_data');
+        const response = await fetch('https://trafficmanagement.website/get_report_data');
         if (!response.ok) throw new Error("Failed to fetch report data");
 
         const data = await response.json();
@@ -949,7 +949,7 @@ setInterval(resetDailyDataIfNewDay, 60000); // Check and reset daily data every 
     
         async function updateCongestionLevel() {
             try {
-                const response = await fetch('/get_congestion_level');
+                const response = await fetch('https://trafficmanagement.website/get_congestion_level');
                 if (!response.ok) throw new Error('Network response was not ok');
     
                 const data = await response.json();
@@ -1014,7 +1014,7 @@ setInterval(resetDailyDataIfNewDay, 60000); // Check and reset daily data every 
     // Function to fetch average counts from the backend
     async function fetchPredictiveData() {
     try {
-        const response = await fetch('/get_average_counts');
+        const response = await fetch('https://trafficmanagement.website/get_average_counts');
         if (!response.ok) throw new Error("Failed to fetch predictive data");
 
         const predictiveData = await response.json();
@@ -1083,7 +1083,7 @@ fetchPredictiveData();
     // Fetch average vehicle counts for each day of the week
 async function fetchAverageCounts() {
     try {
-        const response = await fetch('/get_average_counts'); // Fetch data from backend
+        const response = await fetch('https://trafficmanagement.website/get_average_counts'); // Fetch data from backend
         if (!response.ok) throw new Error("Failed to fetch average counts");
 
         const averageCounts = await response.json(); // Parse the JSON response
@@ -1173,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchRecommendations() {
     try {
-        const response = await fetch('/get_recommendations');
+        const response = await fetch('https://trafficmanagement.website/get_recommendations');
         if (!response.ok) throw new Error("Failed to fetch recommendations");
 
         const recommendations = await response.json();
@@ -1205,7 +1205,7 @@ let lastIntervalIndexxx = -1; // Track the last time interval index
 async function updateRecommendations() {
     try {
         // Fetch the current counts
-        const response = await fetch('/get_report_data');
+        const response = await fetch('https://trafficmanagement.website/get_report_data');
         if (!response.ok) throw new Error("Failed to fetch report data");
 
         const data = await response.json();
